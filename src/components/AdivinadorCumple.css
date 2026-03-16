@@ -254,59 +254,7 @@
   font-weight: 800;
 }
 
-@media (max-width: 640px) {
-  .adiv-root {
-    padding: 18px 12px 28px;
-  .adiv-topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-  .adiv-panel-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .adiv-panel-status {
-    white-space: normal;
-  }
-  }
-
-  .adiv-topbar-status {
-    white-space: normal;
-  }
-
-  .adiv-brand-badge {
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
-  }
-  }
-
-  .adiv-grid {
-    gap: 16px;
-  }
-
-  .adiv-card {
-    padding: 14px;
-    border-radius: 22px;
-  }
-
-  .adiv-number {
-    font-size: 22px;
-    border-radius: 14px;
-  }
-
-  .adiv-btn {
-    font-size: 16px;
-    height: 50px;
-  }
-
-  .adiv-status {
-    font-size: 12px;
-    padding: 7px 10px;
-  }
-}
+@media (max-width: 640px)
 /* Animaciones suaves */
 @keyframes adivFadeUp {
   from {
@@ -675,36 +623,76 @@
 /* Celular pequeño */
 @media (max-width: 420px) {
   .adiv-topbar {
-    padding: 10px 12px;
-    border-radius: 18px;
+    padding: 9px 10px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+  }
+
+  .adiv-brand {
+    gap: 10px;
+  }
+
+  .adiv-brand-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    border-radius: 12px;
   }
 
   .adiv-brand-title {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .adiv-brand-subtitle {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .adiv-topbar-status {
-    font-size: 12px;
-    padding: 7px 10px;
+    font-size: 11px;
+    padding: 6px 9px;
   }
 
   .adiv-title {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .adiv-subtitle {
-    font-size: 15px;
+    font-size: 14px;
   }
 
-  .adiv-number {
+  .adiv-help {
+    font-size: 11px;
+  }
+
+  .adiv-pill {
+    font-size: 12px;
+    padding: 8px 11px;
+  }
+
+  .adiv-card {
+    padding: 10px;
+  }
+
+  .adiv-card-title {
     font-size: 17px;
   }
 
-  .adiv-btn {
+  .adiv-status {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+
+  .adiv-numbers {
+    gap: 5px;
+  }
+
+  .adiv-number {
     font-size: 15px;
+    border-radius: 10px;
+  }
+
+  .adiv-btn {
+    font-size: 14px;
+    height: 46px;
   }
 }
