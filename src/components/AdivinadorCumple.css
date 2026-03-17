@@ -392,37 +392,18 @@
 /* ===== Ajustes responsive finos ===== */
 
 /* Pantallas grandes */
-@media (min-width: 1440px) {
+@media (min-width: 1200px) {
   .adiv-container {
-    max-width: 1440px;
+    max-width: 1320px;
   }
 
   .adiv-grid {
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
-    gap: 24px;
-  }
-
-  .adiv-title {
-    font-size: clamp(48px, 5vw, 72px);
-  }
-}
-
-/* Notebook y escritorio medio */
-@media (max-width: 1366px) {
-  .adiv-container {
-    max-width: 1180px;
-  }
-
-  .adiv-title {
-    font-size: clamp(34px, 4.2vw, 58px);
-  }
-
-  .adiv-subtitle {
-    font-size: clamp(15px, 1.8vw, 20px);
-  }
-
-  .adiv-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
+  }
+
+  .adiv-title {
+    font-size: clamp(42px, 4.6vw, 68px);
   }
 
   .adiv-card {
@@ -430,10 +411,36 @@
   }
 
   .adiv-number {
-    font-size: clamp(20px, 1.8vw, 30px);
+    font-size: clamp(18px, 1.6vw, 28px);
   }
 }
+/* Notebook y escritorio medio */
+@media (max-width: 1199px) and (min-width: 901px) {
+  .adiv-container {
+    max-width: 1100px;
+  }
 
+  .adiv-title {
+    font-size: clamp(34px, 4.2vw, 56px);
+  }
+
+  .adiv-subtitle {
+    font-size: clamp(15px, 1.8vw, 20px);
+  }
+
+  .adiv-grid {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .adiv-card {
+    padding: 16px;
+  }
+
+  .adiv-number {
+    font-size: clamp(18px, 1.8vw, 28px);
+  }
+}
 /* Tablet horizontal / notebook pequeño */
 @media (max-width: 1100px) {
   .adiv-root {
