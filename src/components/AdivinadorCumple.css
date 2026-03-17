@@ -254,7 +254,6 @@
   font-weight: 800;
 }
 
-@media (max-width: 640px)
 /* Animaciones suaves */
 @keyframes adivFadeUp {
   from {
@@ -512,7 +511,7 @@
 /* Celular grande */
 @media (max-width: 640px) {
   .adiv-root {
-    padding: 16px 12px 24px;
+    padding: 14px 10px 22px;
   }
 
   .adiv-container {
@@ -520,103 +519,108 @@
   }
 
   .adiv-header {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .adiv-title {
-    font-size: clamp(28px, 8vw, 42px);
+    font-size: clamp(24px, 6.8vw, 34px);
     line-height: 1.08;
   }
 
   .adiv-subtitle {
-    font-size: 16px;
-    line-height: 1.35;
+    font-size: 15px;
+    line-height: 1.28;
+    margin-bottom: 6px;
   }
 
   .adiv-help {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .adiv-pill {
-    font-size: 14px;
-    padding: 10px 14px;
+    font-size: 13px;
+    padding: 9px 12px;
     max-width: 100%;
   }
 
   .adiv-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .adiv-card {
-    padding: 14px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 16px;
   }
 
   .adiv-card-top {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    gap: 6px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .adiv-card-title {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .adiv-status {
-    font-size: 12px;
-    padding: 7px 10px;
+    font-size: 10px;
+    padding: 5px 8px;
+    align-self: flex-start;
   }
 
   .adiv-numbers {
-    gap: 8px;
+    gap: 5px;
   }
 
   .adiv-number {
-    font-size: 18px;
-    border-radius: 14px;
+    font-size: 15px;
+    border-radius: 10px;
   }
 
   .adiv-panel {
-    padding: 14px;
-    border-radius: 22px;
+    padding: 12px;
+    border-radius: 18px;
   }
 
   .adiv-panel-title {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .adiv-panel-subtitle {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .adiv-actions {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
   .adiv-btn {
-    height: 50px;
-    font-size: 16px;
-    border-radius: 14px;
+    height: 46px;
+    font-size: 15px;
+    border-radius: 12px;
   }
 
   .adiv-result-box {
-    min-height: 120px;
-    padding: 16px;
+    min-height: 110px;
+    padding: 14px;
   }
 
   .adiv-result-value {
-    font-size: clamp(44px, 14vw, 72px);
+    font-size: clamp(38px, 11vw, 60px);
   }
 
   .adiv-result-message,
   .adiv-result-text,
   .adiv-result-error {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .adiv-footer {
-    font-size: 12px;
-    margin-top: 18px;
+    font-size: 11px;
+    margin-top: 16px;
   }
 }
 
@@ -653,7 +657,7 @@
   }
 
   .adiv-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .adiv-subtitle {
@@ -666,33 +670,38 @@
 
   .adiv-pill {
     font-size: 12px;
-    padding: 8px 11px;
+    padding: 8px 10px;
+  }
+
+  .adiv-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .adiv-card {
-    padding: 10px;
+    padding: 8px;
   }
 
   .adiv-card-title {
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .adiv-status {
-    font-size: 10px;
-    padding: 5px 8px;
+    font-size: 9px;
+    padding: 4px 7px;
   }
 
   .adiv-numbers {
-    gap: 5px;
+    gap: 4px;
   }
 
   .adiv-number {
-    font-size: 15px;
-    border-radius: 10px;
+    font-size: 14px;
+    border-radius: 9px;
   }
 
   .adiv-btn {
     font-size: 14px;
-    height: 46px;
+    height: 44px;
   }
 }
