@@ -511,35 +511,69 @@
 /* Celular grande */
 @media (max-width: 640px) {
   .adiv-root {
-    padding: 14px 10px 22px;
+    padding: 12px 10px 18px;
   }
 
   .adiv-container {
     max-width: 100%;
   }
 
+  .adiv-topbar {
+    padding: 8px 10px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+  }
+
+  .adiv-brand {
+    gap: 8px;
+  }
+
+  .adiv-brand-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+    border-radius: 11px;
+  }
+
+  .adiv-brand-title {
+    font-size: 14px;
+  }
+
+  .adiv-brand-subtitle {
+    font-size: 11px;
+  }
+
+  .adiv-topbar-status {
+    font-size: 11px;
+    padding: 6px 9px;
+  }
+
   .adiv-header {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .adiv-title {
-    font-size: clamp(24px, 6.8vw, 34px);
-    line-height: 1.08;
+    font-size: clamp(22px, 6.5vw, 34px);
+    line-height: 1.06;
+    margin-bottom: 8px;
   }
 
   .adiv-subtitle {
-    font-size: 15px;
-    line-height: 1.28;
-    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.25;
+    margin-top: 6px;
+    margin-bottom: 4px;
   }
 
   .adiv-help {
-    font-size: 12px;
+    font-size: 11px;
+    margin-top: 0;
   }
 
   .adiv-pill {
-    font-size: 13px;
-    padding: 9px 12px;
+    font-size: 12px;
+    padding: 8px 11px;
+    margin-top: 10px;
     max-width: 100%;
   }
 
@@ -580,101 +614,127 @@
   }
 
   .adiv-panel {
-    padding: 12px;
-    border-radius: 18px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .adiv-panel-top {
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
   .adiv-panel-title {
-    font-size: 16px;
+    font-size: 15px;
+    margin-bottom: 2px;
   }
 
   .adiv-panel-subtitle {
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .adiv-panel-status {
+    font-size: 11px;
+    padding: 7px 9px;
+    align-self: flex-start;
   }
 
   .adiv-actions {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 7px;
+    margin-bottom: 10px;
   }
 
   .adiv-btn {
-    height: 46px;
-    font-size: 15px;
-    border-radius: 12px;
+    height: 42px;
+    font-size: 14px;
+    border-radius: 10px;
   }
 
   .adiv-result-box {
-    min-height: 110px;
-    padding: 14px;
+    min-height: 96px;
+    padding: 12px;
+  }
+
+  .adiv-result-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
   }
 
   .adiv-result-value {
-    font-size: clamp(38px, 11vw, 60px);
+    font-size: clamp(34px, 11vw, 56px);
   }
 
   .adiv-result-message,
   .adiv-result-text,
   .adiv-result-error {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .adiv-footer {
     font-size: 11px;
-    margin-top: 16px;
+    margin-top: 14px;
   }
 }
-
 /* Celular pequeño */
 @media (max-width: 420px) {
+  .adiv-root {
+    padding: 10px 8px 16px;
+  }
+
   .adiv-topbar {
-    padding: 9px 10px;
-    border-radius: 16px;
-    margin-bottom: 14px;
+    padding: 8px 9px;
+    border-radius: 14px;
+    margin-bottom: 10px;
   }
 
   .adiv-brand {
-    gap: 10px;
+    gap: 8px;
   }
 
   .adiv-brand-badge {
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
-    border-radius: 12px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    border-radius: 10px;
   }
 
   .adiv-brand-title {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .adiv-brand-subtitle {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .adiv-topbar-status {
-    font-size: 11px;
-    padding: 6px 9px;
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+
+  .adiv-header {
+    margin-bottom: 12px;
   }
 
   .adiv-title {
-    font-size: 22px;
+    font-size: 21px;
   }
 
   .adiv-subtitle {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .adiv-help {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .adiv-pill {
-    font-size: 12px;
-    padding: 8px 10px;
+    font-size: 11px;
+    padding: 7px 10px;
   }
 
   .adiv-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
 
@@ -700,8 +760,41 @@
     border-radius: 9px;
   }
 
-  .adiv-btn {
+  .adiv-panel {
+    padding: 9px;
+  }
+
+  .adiv-panel-title {
     font-size: 14px;
-    height: 44px;
+  }
+
+  .adiv-panel-subtitle {
+    font-size: 10px;
+  }
+
+  .adiv-panel-status {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+
+  .adiv-btn {
+    height: 40px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .adiv-result-box {
+    min-height: 90px;
+    padding: 10px;
+  }
+
+  .adiv-result-value {
+    font-size: clamp(30px, 10vw, 48px);
+  }
+
+  .adiv-result-message,
+  .adiv-result-text,
+  .adiv-result-error {
+    font-size: 13px;
   }
 }
