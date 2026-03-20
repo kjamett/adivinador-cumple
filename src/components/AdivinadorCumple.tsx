@@ -238,8 +238,9 @@ export default function AdivinadorCumple() {
                 </section>
 
         <footer className="adiv-footer">
-          <strong>Adivinador Cumple</strong> · interfaz interactiva lista para web
-        </footer>
+  	  <strong>Adivinador Cumple</strong> · interfaz interactiva lista para web ·{" "}
+          <a href="/como-funciona.html">Cómo funciona</a>
+ 	</footer>
       </div>
     </div>
    );
