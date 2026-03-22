@@ -937,3 +937,41 @@
     font-size: 13px;
   }
 }
+.adiv-card.dense-card {
+  padding: 14px;
+}
+
+.adiv-numbers.dense {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.adiv-number.small {
+  aspect-ratio: auto;
+  min-height: 48px;
+  border-radius: 12px;
+  font-size: clamp(14px, 1vw, 22px);
+}
+
+@media (max-width: 900px) {
+  .adiv-numbers.dense {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .adiv-number.small {
+    min-height: 42px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .adiv-numbers.dense {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .adiv-number.small {
+    min-height: 38px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+}

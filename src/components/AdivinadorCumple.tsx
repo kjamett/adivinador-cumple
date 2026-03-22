@@ -2,8 +2,16 @@ import { useMemo, useState } from "react";
 import "./AdivinadorCumple.css";
 
 type Paridad = "par" | "impar" | null;
+type Modo = "cumple" | "edad";
 
-const TABLAS = [
+type Tabla = {
+  key: string;
+  valor: number;
+  color: string;
+  datos: number[][];
+};
+
+const TABLAS_CUMPLE: Tabla[] = [
   {
     key: "TABLA 1",
     valor: 2,
@@ -50,7 +58,90 @@ const TABLAS = [
   },
 ];
 
+const PARTES_EDAD = [
+  { valor: 1, color: "#ef4444" },
+  { valor: 2, color: "#0d5c63" },
+  { valor: 4, color: "#3a7d44" },
+  { valor: 8, color: "#7b2cbf" },
+  { valor: 16, color: "#1d4ed8" },
+  { valor: 32, color: "#f97316" },
+];
+
+function dividirEnFilas(lista: number[], tam: number) {
+  const filas: number[][] = [];
+  for (let i = 0; i < lista.length; i += tam) {
+    filas.push(lista.slice(i, i + tam));
+  }
+  return filas;
+}
+
+function generarTablasEdad(): Tabla[] {
+  return PARTES_EDAD.map((parte, index) => {
+    const numeros = Array.from({ length: 63 }, (_, i) => i + 1).filter(
+      (n) => (n & parte.valor) !== 0
+    );
+
+    return {
+      key: `TABLA ${index + 1}`,
+      valor: parte.valor,
+      color: parte.color,
+      datos: dividirEnFilas(numeros, 6),
+    };
+  });
+}
+
+const TABLAS_EDAD = generarTablasEdad();
+
+const CONFIG = {
+  cumple: {
+    badge: "31",
+    brandTitle: "Adivinador Cumple",
+    brandSubtitle: "Experiencia interactiva",
+    topbarStatus: "Día pensado · 1 a 31",
+    title: "Adivinador del día de cumpleaños",
+    subtitle: "Haz clic en las tablas donde aparezca el número pensado.",
+    help: "Después indica si es par o impar.",
+    pillBase: "Selección actual:",
+    panelTitle: "Panel de control",
+    panelSubtitle:
+      "Selecciona las tablas, define la paridad y revela el resultado para comenzar una nueva jugada cuando quieras.",
+    resultPrompt:
+      "Selecciona las tablas que correspondan y luego elige si el número es par o impar.",
+    revealPrompt: "Todo listo. Ahora presiona “Mostrar resultado”.",
+    resultMessage: (n: number) => `Tu día de cumpleaños es el ${n}`,
+    showParity: true,
+    min: 1,
+    max: 31,
+    tablas: TABLAS_CUMPLE,
+  },
+  edad: {
+    badge: "63",
+    brandTitle: "Adivinador de Edad",
+    brandSubtitle: "Juego matemático interactivo",
+    topbarStatus: "Edad pensada · 1 a 63",
+    title: "Adivinador de edad",
+    subtitle: "Haz clic en las tablas donde aparezca la edad pensada.",
+    help: "Cuando termines, presiona mostrar resultado.",
+    pillBase: "Selección actual:",
+    panelTitle: "Panel de control",
+    panelSubtitle:
+      "Selecciona las tablas donde aparezca la edad pensada y luego revela el resultado para comenzar una nueva jugada cuando quieras.",
+    resultPrompt:
+      "Selecciona las tablas donde aparezca la edad pensada y luego presiona mostrar resultado.",
+    revealPrompt: "Todo listo. Ahora presiona “Mostrar resultado”.",
+    resultMessage: (n: number) => `La edad pensada es ${n}`,
+    showParity: false,
+    min: 1,
+    max: 63,
+    tablas: TABLAS_EDAD,
+  },
+};
+
 export default function AdivinadorCumple() {
+  const search = new URLSearchParams(window.location.search);
+  const modo: Modo = search.get("juego") === "edad" ? "edad" : "cumple";
+  const config = CONFIG[modo];
+
   const [seleccionadas, setSeleccionadas] = useState<string[]>([]);
   const [paridad, setParidad] = useState<Paridad>(null);
   const [mostrarResultado, setMostrarResultado] = useState(false);
@@ -69,68 +160,76 @@ export default function AdivinadorCumple() {
     setParidad(null);
     setMostrarResultado(false);
   };
+
   const revelarResultado = () => {
-    if (paridad === null) return;
+    if (config.showParity && paridad === null) return;
     setMostrarResultado(true);
   };
+
   const resultado = useMemo(() => {
-    let total = TABLAS.filter((t) => seleccionadas.includes(t.key)).reduce(
-      (acc, t) => acc + t.valor,
-      0
-    );
+    let total = config.tablas
+      .filter((t) => seleccionadas.includes(t.key))
+      .reduce((acc, t) => acc + t.valor, 0);
 
-    if (paridad === "impar") total += 1;
+    if (config.showParity && paridad === "impar") total += 1;
 
-    if (total < 1 || total > 31) return null;
+    if (total < config.min || total > config.max) return null;
     return total;
-  }, [seleccionadas, paridad]);
+  }, [seleccionadas, paridad, config]);
 
   const seleccionTexto =
     seleccionadas.length > 0 ? seleccionadas.join(", ") : "ninguna";
-  const estadoTexto =
-    paridad === null
+
+  const estadoTexto = config.showParity
+    ? paridad === null
       ? "Falta elegir la paridad"
       : !mostrarResultado
       ? "Listo para revelar"
-      : "Resultado mostrado";
+      : "Resultado mostrado"
+    : seleccionadas.length === 0
+    ? "Selecciona las tablas"
+    : !mostrarResultado
+    ? "Listo para revelar"
+    : "Resultado mostrado";
+
   return (
     <div className="adiv-root">
       <div className="adiv-container">
-      	<div className="adiv-topbar">
-  	  <div className="adiv-brand">
-    	    <div className="adiv-brand-badge">31</div>
-    	    <div>
-      	     <div className="adiv-brand-title">Adivinador Cumple</div>
-     	     <div className="adiv-brand-subtitle">Experiencia interactiva</div>
-    	    </div>
-  	</div>
+        <div className="adiv-topbar">
+          <div className="adiv-brand">
+            <div className="adiv-brand-badge">{config.badge}</div>
+            <div>
+              <div className="adiv-brand-title">{config.brandTitle}</div>
+              <div className="adiv-brand-subtitle">{config.brandSubtitle}</div>
+            </div>
+          </div>
 
-  	<div className="adiv-topbar-status">
-    	  Día pensado · 1 a 31
- 	</div>
-     </div>
+          <div className="adiv-topbar-status">{config.topbarStatus}</div>
+        </div>
+
         <header className="adiv-header">
-          <h1 className="adiv-title">Adivinador del día de cumpleaños</h1>
-          <p className="adiv-subtitle">
-            Haz clic en las tablas donde aparezca el número pensado.
-          </p>
-          <p className="adiv-help">Después indica si es par o impar.</p>
+          <h1 className="adiv-title">{config.title}</h1>
+          <p className="adiv-subtitle">{config.subtitle}</p>
+          <p className="adiv-help">{config.help}</p>
 
           <div className="adiv-pill">
-            Selección actual: {seleccionTexto}
+            {config.pillBase} {seleccionTexto}
           </div>
         </header>
 
         <div className="adiv-grid">
-          {TABLAS.map((tabla) => {
+          {config.tablas.map((tabla) => {
             const activa = seleccionadas.includes(tabla.key);
+            const esEdad = modo === "edad";
 
             return (
               <button
-		type="button"
+                type="button"
                 key={tabla.key}
                 onClick={() => toggleTabla(tabla.key)}
-                className={`adiv-card ${activa ? "active" : ""}`}
+                className={`adiv-card ${activa ? "active" : ""} ${
+                  esEdad ? "dense-card" : ""
+                }`}
               >
                 <div className="adiv-card-top">
                   <div className="adiv-card-title">{tabla.key}</div>
@@ -139,11 +238,11 @@ export default function AdivinadorCumple() {
                   </div>
                 </div>
 
-                <div className="adiv-numbers">
+                <div className={`adiv-numbers ${esEdad ? "dense" : ""}`}>
                   {tabla.datos.flat().map((n) => (
                     <div
                       key={`${tabla.key}-${n}`}
-                      className="adiv-number"
+                      className={`adiv-number ${esEdad ? "small" : ""}`}
                       style={{ background: tabla.color }}
                     >
                       {n}
@@ -157,96 +256,108 @@ export default function AdivinadorCumple() {
 
         <section className="adiv-panel">
           <div className="adiv-panel-top">
-           <div>
-             <div className="adiv-panel-title">Panel de control</div>
-             <div className="adiv-panel-subtitle">
-               Selecciona las tablas, define la paridad y revela el resultado para comenzar una nueva jugada cuando quieras.
-      	     </div>
-    	   </div>
+            <div>
+              <div className="adiv-panel-title">{config.panelTitle}</div>
+              <div className="adiv-panel-subtitle">{config.panelSubtitle}</div>
+            </div>
 
-    	   <div
-      	     className={`adiv-panel-status ${
-               paridad === null ? "" : !mostrarResultado ? "ready" : "done"
-      	     }`}
-    	   >
-      	     {estadoTexto}
-    	   </div>
-  	 </div>
+            <div
+              className={`adiv-panel-status ${
+                (config.showParity && paridad !== null && !mostrarResultado) ||
+                (!config.showParity &&
+                  seleccionadas.length > 0 &&
+                  !mostrarResultado)
+                  ? "ready"
+                  : mostrarResultado
+                  ? "done"
+                  : ""
+              }`}
+            >
+              {estadoTexto}
+            </div>
+          </div>
 
-  	 <div className="adiv-actions">
-            <button
-  	      type="button"
-  	      onClick={() => {
-    		setParidad("impar");
-    		setMostrarResultado(false);
-  	      }}
-  	      className={`adiv-btn green ${paridad === "impar" ? "selected" : ""}`}
-	    >
-  	      Es impar
-	    </button>
+          <div className="adiv-actions">
+            {config.showParity && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setParidad("impar");
+                    setMostrarResultado(false);
+                  }}
+                  className={`adiv-btn green ${
+                    paridad === "impar" ? "selected" : ""
+                  }`}
+                >
+                  Es impar
+                </button>
 
-	    <button
-              type="button"
-  	      onClick={() => {
-    		setParidad("par");
-    		setMostrarResultado(false);
-  	      }}
- 	      className={`adiv-btn red ${paridad === "par" ? "selected" : ""}`}
-	    >
-  	      Es par
-	    </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setParidad("par");
+                    setMostrarResultado(false);
+                  }}
+                  className={`adiv-btn red ${
+                    paridad === "par" ? "selected" : ""
+                  }`}
+                >
+                  Es par
+                </button>
+              </>
+            )}
 
             <button type="button" onClick={limpiar} className="adiv-btn yellow">
-  	      Nueva jugada
-	    </button>
+              Nueva jugada
+            </button>
 
-	    <button
- 	      type="button"
-  	      onClick={revelarResultado}
-  	      disabled={paridad === null}
-  	      className="adiv-btn blue"
-	    >
-  	      Mostrar resultado
-	    </button>
+            <button
+              type="button"
+              onClick={revelarResultado}
+              disabled={config.showParity ? paridad === null : false}
+              className="adiv-btn blue"
+            >
+              Mostrar resultado
+            </button>
           </div>
 
           <div className="adiv-result-box">
-  	   {paridad === null ? (
-  	     <div className="adiv-result-text">
-    	       Selecciona las tablas que correspondan y luego elige si el número es par o impar.
-  	     </div>
-	   ) : !mostrarResultado ? (
-  	     <div className="adiv-result-text">
-    	       Todo listo. Ahora presiona <strong>“Mostrar resultado”</strong>.
-  	     </div>
-	   ) : resultado !== null ? (
-  	     <div className="adiv-result-success">
-    	       <div className="adiv-result-label">Resultado</div>
-    	       <div className="adiv-result-value">
-      	         {resultado}
-    	       </div>
-    	       <div className="adiv-result-message">
-      		 Tu día de cumpleaños es el <strong>{resultado}</strong>
-    	       </div>
-  	     </div>
-	   ) : (
-  	     <div className="adiv-result-error">
-   	       La combinación no entregó un valor válido.
-  	     </div>
-	   )}
-	  </div>
-                </section>
+            {config.showParity && paridad === null ? (
+              <div className="adiv-result-text">{config.resultPrompt}</div>
+            ) : !config.showParity && seleccionadas.length === 0 ? (
+              <div className="adiv-result-text">{config.resultPrompt}</div>
+            ) : !mostrarResultado ? (
+              <div className="adiv-result-text">{config.revealPrompt}</div>
+            ) : resultado !== null ? (
+              <div className="adiv-result-success">
+                <div className="adiv-result-label">Resultado</div>
+                <div className="adiv-result-value">{resultado}</div>
+                <div className="adiv-result-message">
+                  {config.resultMessage(resultado)}
+                </div>
+              </div>
+            ) : (
+              <div className="adiv-result-error">
+                La combinación no entregó un valor válido.
+              </div>
+            )}
+          </div>
+        </section>
 
         <footer className="adiv-footer">
-  	  <strong>Adivinador Cumple</strong> · interfaz interactiva lista para web ·{" "}
-  	  <span className="adiv-footer-links">
-    	    <a href="/como-funciona.html">Cómo funciona</a>
-    	    <a href="/preguntas-frecuentes.html">Preguntas frecuentes</a>
-    	    <a href="/truco-matematico-del-cumpleanos.html">Truco matemático</a>
-	    <a href="/adivinador-de-edad.html">Adivinador de edad</a>
-  	  </span>
-	</footer>
+          <strong>Adivinador Cumple</strong> · interfaz interactiva lista para
+          web ·{" "}
+          <span className="adiv-footer-links">
+            <a href="/como-funciona.html">Cómo funciona</a>
+            <a href="/preguntas-frecuentes.html">Preguntas frecuentes</a>
+            <a href="/truco-matematico-del-cumpleanos.html">
+              Truco matemático
+            </a>
+            <a href="/adivinador-de-edad.html">Adivinador de edad</a>
+          </span>
+        </footer>
       </div>
     </div>
-   );
+  );
 }
