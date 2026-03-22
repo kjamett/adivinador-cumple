@@ -240,7 +240,8 @@ export default function AdivinadorCumple() {
         <footer className="adiv-footer">
   	  <strong>Adivinador Cumple</strong> · interfaz interactiva lista para web ·{" "}
           <a href="/como-funciona.html">Cómo funciona</a>{"    "}
-	  <a href="/preguntas-frecuentes.html">Preguntas frecuentes</a>
+	  <a href="/preguntas-frecuentes.html">Preguntas frecuentes</a>{"    "}
+	  <a href="/truco-matematico-del-cumpleanos.html">Cual es el truco?</a>
  	</footer>
       </div>
     </div>
