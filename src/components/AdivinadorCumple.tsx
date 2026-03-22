@@ -243,6 +243,7 @@ export default function AdivinadorCumple() {
     	    <a href="/como-funciona.html">Cómo funciona</a>
     	    <a href="/preguntas-frecuentes.html">Preguntas frecuentes</a>
     	    <a href="/truco-matematico-del-cumpleanos.html">Truco matemático</a>
+	    <a href="/adivinador-de-edad.html">Adivinador de edad</a>
   	  </span>
 	</footer>
       </div>
