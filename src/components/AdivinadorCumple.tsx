@@ -442,22 +442,28 @@ export default function AdivinadorCumple() {
               )}
 
               {modo === "cumple" && (
-                <div className="adiv-secondary-links-bottom">
-                  <div className="adiv-link-group">
-                    <a className="adiv-link-btn" href="/?juego=edad">
-                      Abrir juego interactivo de edad
-                    </a>
-                    <a className="adiv-link-btn" href="/?juego=numero">
-                      Abrir juego interactivo de número
-                    </a>
-                    <a className="adiv-link-btn" href="/?juego=mes">
-                      Abrir juego interactivo del mes
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+  		<div className="adiv-secondary-links-bottom">
+    		  <div className="adiv-link-group">
+      	  	    <a className="adiv-link-btn" href="/?juego=edad">
+        	      Abrir juego interactivo de edad
+      		    </a>
+      	 	    <a className="adiv-link-btn" href="/?juego=numero">
+        	      Abrir juego interactivo de número
+      		    </a>
+     		    <a className="adiv-link-btn" href="/?juego=mes">
+        	      Abrir juego interactivo del mes
+      		    </a>
+      	            <a
+        	      className="adiv-link-btn"
+        	      href="/calculadora-magica-del-cumpleanos.html"
+      		    >
+        	      Abrir calculadora mágica del cumpleaños
+      		    </a>
+    		  </div>
+  		</div>
+	      )}
+  	    </div>
+	  </div>
         </section>
 
         <footer className="adiv-footer">
