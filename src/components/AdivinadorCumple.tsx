@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import "./AdivinadorCumple.css";
 
 type Paridad = "par" | "impar" | null;
-type Modo = "cumple" | "edad" | "numero";
+type Modo = "cumple" | "edad" | "numero" | "mes";
 
 type Tabla = {
   key: string;
@@ -10,6 +10,21 @@ type Tabla = {
   color: string;
   datos: number[][];
 };
+
+const MESES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+];
 
 const TABLAS_CUMPLE: Tabla[] = [
   {
@@ -58,6 +73,13 @@ const TABLAS_CUMPLE: Tabla[] = [
   },
 ];
 
+const PARTES_MES = [
+  { valor: 1, color: "#ef4444" },
+  { valor: 2, color: "#0d5c63" },
+  { valor: 4, color: "#3a7d44" },
+  { valor: 8, color: "#7b2cbf" },
+];
+
 const PARTES_EDAD = [
   { valor: 1, color: "#ef4444" },
   { valor: 2, color: "#0d5c63" },
@@ -85,7 +107,11 @@ function dividirEnFilas(lista: number[], tam: number) {
   return filas;
 }
 
-function generarTablas(max: number, partes: { valor: number; color: string }[]): Tabla[] {
+function generarTablas(
+  max: number,
+  partes: { valor: number; color: string }[],
+  porFila = 6
+): Tabla[] {
   return partes.map((parte, index) => {
     const numeros = Array.from({ length: max }, (_, i) => i + 1).filter(
       (n) => (n & parte.valor) !== 0
@@ -95,13 +121,14 @@ function generarTablas(max: number, partes: { valor: number; color: string }[]):
       key: `TABLA ${index + 1}`,
       valor: parte.valor,
       color: parte.color,
-      datos: dividirEnFilas(numeros, 6),
+      datos: dividirEnFilas(numeros, porFila),
     };
   });
 }
 
-const TABLAS_EDAD = generarTablas(63, PARTES_EDAD);
-const TABLAS_NUMERO = generarTablas(99, PARTES_NUMERO);
+const TABLAS_MES = generarTablas(12, PARTES_MES, 4);
+const TABLAS_EDAD = generarTablas(63, PARTES_EDAD, 6);
+const TABLAS_NUMERO = generarTablas(99, PARTES_NUMERO, 6);
 
 const CONFIG = {
   cumple: {
@@ -124,6 +151,27 @@ const CONFIG = {
     min: 1,
     max: 31,
     tablas: TABLAS_CUMPLE,
+  },
+  mes: {
+    badge: "12",
+    brandTitle: "Adivinador del Mes",
+    brandSubtitle: "Juego matemático interactivo",
+    topbarStatus: "Mes pensado · 1 a 12",
+    title: "Adivinador del mes de cumpleaños",
+    subtitle: "Haz clic en las tablas donde aparezca el mes pensado.",
+    help: "Cuando termines, presiona mostrar resultado.",
+    pillBase: "Selección actual:",
+    panelTitle: "Panel de control",
+    panelSubtitle:
+      "Selecciona las tablas donde aparezca el mes pensado y luego revela el resultado para comenzar una nueva jugada cuando quieras.",
+    resultPrompt:
+      "Selecciona las tablas donde aparezca el mes pensado y luego presiona mostrar resultado.",
+    revealPrompt: "Todo listo. Ahora presiona “Mostrar resultado”.",
+    resultMessage: (n: number) => `El mes pensado es ${MESES[n - 1]}`,
+    showParity: false,
+    min: 1,
+    max: 12,
+    tablas: TABLAS_MES,
   },
   edad: {
     badge: "63",
@@ -173,7 +221,13 @@ export default function AdivinadorCumple() {
   const search = new URLSearchParams(window.location.search);
   const juego = search.get("juego");
   const modo: Modo =
-    juego === "edad" ? "edad" : juego === "numero" ? "numero" : "cumple";
+    juego === "edad"
+      ? "edad"
+      : juego === "numero"
+      ? "numero"
+      : juego === "mes"
+      ? "mes"
+      : "cumple";
 
   const config = CONFIG[modo];
 
@@ -396,6 +450,9 @@ export default function AdivinadorCumple() {
                     <a className="adiv-link-btn" href="/?juego=numero">
                       Abrir juego interactivo de número
                     </a>
+                    <a className="adiv-link-btn" href="/?juego=mes">
+                      Abrir juego interactivo del mes
+                    </a>
                   </div>
                 </div>
               )}
@@ -414,6 +471,7 @@ export default function AdivinadorCumple() {
             </a>
             <a href="/adivinador-de-edad.html">Adivinador de edad</a>
             <a href="/adivinador-de-numero.html">Adivinador de número</a>
+            <a href="/adivinador-del-mes.html">Adivinador del mes</a>
           </span>
         </footer>
       </div>
