@@ -213,9 +213,18 @@ export default function AdivinadorCumple() {
           <p className="adiv-help">{config.help}</p>
 
           <div className="adiv-pill">
-            {config.pillBase} {seleccionTexto}
-          </div>
-        </header>
+  	    {config.pillBase} {seleccionTexto}
+	  </div>
+
+	  {modo === "edad" && (
+  	    <div className="adiv-secondary-links">
+    	      <a className="adiv-link-btn" href="/">
+      		Volver al juego principal
+    	      </a>
+  	    </div>
+	  )}
+
+	</header>
 
         <div className="adiv-grid">
           {config.tablas.map((tabla) => {
@@ -323,26 +332,36 @@ export default function AdivinadorCumple() {
           </div>
 
           <div className="adiv-result-box">
-            {config.showParity && paridad === null ? (
-              <div className="adiv-result-text">{config.resultPrompt}</div>
-            ) : !config.showParity && seleccionadas.length === 0 ? (
-              <div className="adiv-result-text">{config.resultPrompt}</div>
-            ) : !mostrarResultado ? (
-              <div className="adiv-result-text">{config.revealPrompt}</div>
-            ) : resultado !== null ? (
-              <div className="adiv-result-success">
+  	    <div className="adiv-result-stack">
+   	      {config.showParity && paridad === null ? (
+     	        <div className="adiv-result-text">{config.resultPrompt}</div>
+    	    ) : !config.showParity && seleccionadas.length === 0 ? (
+      	      <div className="adiv-result-text">{config.resultPrompt}</div>
+   	    ) : !mostrarResultado ? (
+      	      <div className="adiv-result-text">{config.revealPrompt}</div>
+    	    ) : resultado !== null ? (
+     	      <div className="adiv-result-success">
                 <div className="adiv-result-label">Resultado</div>
-                <div className="adiv-result-value">{resultado}</div>
-                <div className="adiv-result-message">
-                  {config.resultMessage(resultado)}
-                </div>
-              </div>
-            ) : (
-              <div className="adiv-result-error">
+        	<div className="adiv-result-value">{resultado}</div>
+        	<div className="adiv-result-message">
+         	  {config.resultMessage(resultado)}
+        	</div>
+      	      </div>
+    	    ) : (
+      	      <div className="adiv-result-error">
                 La combinación no entregó un valor válido.
-              </div>
-            )}
-          </div>
+      	      </div>
+    	    )}
+
+    	    {modo === "cumple" && (
+      	      <div className="adiv-secondary-links-bottom">
+        	<a className="adiv-link-btn" href="/?juego=edad">
+          	  Abrir juego interactivo de edad
+        	</a>
+      	      </div>
+    	    )}
+  	  </div>
+	</div>
         </section>
 
         <footer className="adiv-footer">
