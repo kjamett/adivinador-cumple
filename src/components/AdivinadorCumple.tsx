@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import "./AdivinadorCumple.css";
 
 type Paridad = "par" | "impar" | null;
-type Modo = "cumple" | "edad";
+type Modo = "cumple" | "edad" | "numero";
 
 type Tabla = {
   key: string;
@@ -67,6 +67,16 @@ const PARTES_EDAD = [
   { valor: 32, color: "#f97316" },
 ];
 
+const PARTES_NUMERO = [
+  { valor: 1, color: "#ef4444" },
+  { valor: 2, color: "#0d5c63" },
+  { valor: 4, color: "#3a7d44" },
+  { valor: 8, color: "#7b2cbf" },
+  { valor: 16, color: "#1d4ed8" },
+  { valor: 32, color: "#f97316" },
+  { valor: 64, color: "#ec4899" },
+];
+
 function dividirEnFilas(lista: number[], tam: number) {
   const filas: number[][] = [];
   for (let i = 0; i < lista.length; i += tam) {
@@ -75,9 +85,9 @@ function dividirEnFilas(lista: number[], tam: number) {
   return filas;
 }
 
-function generarTablasEdad(): Tabla[] {
-  return PARTES_EDAD.map((parte, index) => {
-    const numeros = Array.from({ length: 63 }, (_, i) => i + 1).filter(
+function generarTablas(max: number, partes: { valor: number; color: string }[]): Tabla[] {
+  return partes.map((parte, index) => {
+    const numeros = Array.from({ length: max }, (_, i) => i + 1).filter(
       (n) => (n & parte.valor) !== 0
     );
 
@@ -90,7 +100,8 @@ function generarTablasEdad(): Tabla[] {
   });
 }
 
-const TABLAS_EDAD = generarTablasEdad();
+const TABLAS_EDAD = generarTablas(63, PARTES_EDAD);
+const TABLAS_NUMERO = generarTablas(99, PARTES_NUMERO);
 
 const CONFIG = {
   cumple: {
@@ -135,11 +146,35 @@ const CONFIG = {
     max: 63,
     tablas: TABLAS_EDAD,
   },
+  numero: {
+    badge: "99",
+    brandTitle: "Adivinador de Número",
+    brandSubtitle: "Juego matemático interactivo",
+    topbarStatus: "Número pensado · 1 a 99",
+    title: "Adivinador de número pensado",
+    subtitle: "Haz clic en las tablas donde aparezca el número pensado.",
+    help: "Cuando termines, presiona mostrar resultado.",
+    pillBase: "Selección actual:",
+    panelTitle: "Panel de control",
+    panelSubtitle:
+      "Selecciona las tablas donde aparezca el número pensado y luego revela el resultado para comenzar una nueva jugada cuando quieras.",
+    resultPrompt:
+      "Selecciona las tablas donde aparezca el número pensado y luego presiona mostrar resultado.",
+    revealPrompt: "Todo listo. Ahora presiona “Mostrar resultado”.",
+    resultMessage: (n: number) => `El número pensado es ${n}`,
+    showParity: false,
+    min: 1,
+    max: 99,
+    tablas: TABLAS_NUMERO,
+  },
 };
 
 export default function AdivinadorCumple() {
   const search = new URLSearchParams(window.location.search);
-  const modo: Modo = search.get("juego") === "edad" ? "edad" : "cumple";
+  const juego = search.get("juego");
+  const modo: Modo =
+    juego === "edad" ? "edad" : juego === "numero" ? "numero" : "cumple";
+
   const config = CONFIG[modo];
 
   const [seleccionadas, setSeleccionadas] = useState<string[]>([]);
@@ -213,23 +248,22 @@ export default function AdivinadorCumple() {
           <p className="adiv-help">{config.help}</p>
 
           <div className="adiv-pill">
-  	    {config.pillBase} {seleccionTexto}
-	  </div>
+            {config.pillBase} {seleccionTexto}
+          </div>
 
-	  {modo === "edad" && (
-  	    <div className="adiv-secondary-links">
-    	      <a className="adiv-link-btn" href="/">
-      		Volver al juego principal
-    	      </a>
-  	    </div>
-	  )}
-
-	</header>
+          {modo !== "cumple" && (
+            <div className="adiv-secondary-links">
+              <a className="adiv-link-btn" href="/">
+                Volver al adivinador principal
+              </a>
+            </div>
+          )}
+        </header>
 
         <div className="adiv-grid">
           {config.tablas.map((tabla) => {
             const activa = seleccionadas.includes(tabla.key);
-            const esEdad = modo === "edad";
+            const esDenso = modo === "edad" || modo === "numero";
 
             return (
               <button
@@ -237,7 +271,7 @@ export default function AdivinadorCumple() {
                 key={tabla.key}
                 onClick={() => toggleTabla(tabla.key)}
                 className={`adiv-card ${activa ? "active" : ""} ${
-                  esEdad ? "dense-card" : ""
+                  esDenso ? "dense-card" : ""
                 }`}
               >
                 <div className="adiv-card-top">
@@ -247,11 +281,11 @@ export default function AdivinadorCumple() {
                   </div>
                 </div>
 
-                <div className={`adiv-numbers ${esEdad ? "dense" : ""}`}>
+                <div className={`adiv-numbers ${esDenso ? "dense" : ""}`}>
                   {tabla.datos.flat().map((n) => (
                     <div
                       key={`${tabla.key}-${n}`}
-                      className={`adiv-number ${esEdad ? "small" : ""}`}
+                      className={`adiv-number ${esDenso ? "small" : ""}`}
                       style={{ background: tabla.color }}
                     >
                       {n}
@@ -332,36 +366,41 @@ export default function AdivinadorCumple() {
           </div>
 
           <div className="adiv-result-box">
-  	    <div className="adiv-result-stack">
-   	      {config.showParity && paridad === null ? (
-     	        <div className="adiv-result-text">{config.resultPrompt}</div>
-    	    ) : !config.showParity && seleccionadas.length === 0 ? (
-      	      <div className="adiv-result-text">{config.resultPrompt}</div>
-   	    ) : !mostrarResultado ? (
-      	      <div className="adiv-result-text">{config.revealPrompt}</div>
-    	    ) : resultado !== null ? (
-     	      <div className="adiv-result-success">
-                <div className="adiv-result-label">Resultado</div>
-        	<div className="adiv-result-value">{resultado}</div>
-        	<div className="adiv-result-message">
-         	  {config.resultMessage(resultado)}
-        	</div>
-      	      </div>
-    	    ) : (
-      	      <div className="adiv-result-error">
-                La combinación no entregó un valor válido.
-      	      </div>
-    	    )}
+            <div className="adiv-result-stack">
+              {config.showParity && paridad === null ? (
+                <div className="adiv-result-text">{config.resultPrompt}</div>
+              ) : !config.showParity && seleccionadas.length === 0 ? (
+                <div className="adiv-result-text">{config.resultPrompt}</div>
+              ) : !mostrarResultado ? (
+                <div className="adiv-result-text">{config.revealPrompt}</div>
+              ) : resultado !== null ? (
+                <div className="adiv-result-success">
+                  <div className="adiv-result-label">Resultado</div>
+                  <div className="adiv-result-value">{resultado}</div>
+                  <div className="adiv-result-message">
+                    {config.resultMessage(resultado)}
+                  </div>
+                </div>
+              ) : (
+                <div className="adiv-result-error">
+                  La combinación no entregó un valor válido.
+                </div>
+              )}
 
-    	    {modo === "cumple" && (
-      	      <div className="adiv-secondary-links-bottom">
-        	<a className="adiv-link-btn" href="/?juego=edad">
-          	  Abrir juego interactivo de edad
-        	</a>
-      	      </div>
-    	    )}
-  	  </div>
-	</div>
+              {modo === "cumple" && (
+                <div className="adiv-secondary-links-bottom">
+                  <div className="adiv-link-group">
+                    <a className="adiv-link-btn" href="/?juego=edad">
+                      Abrir juego interactivo de edad
+                    </a>
+                    <a className="adiv-link-btn" href="/?juego=numero">
+                      Abrir juego interactivo de número
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </section>
 
         <footer className="adiv-footer">
@@ -374,6 +413,7 @@ export default function AdivinadorCumple() {
               Truco matemático
             </a>
             <a href="/adivinador-de-edad.html">Adivinador de edad</a>
+            <a href="/adivinador-de-numero.html">Adivinador de número</a>
           </span>
         </footer>
       </div>
