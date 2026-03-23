@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora mágica del cumpleaños | Adivina mes y día</title>
+    <meta
+      name="description"
+      content="Usa esta calculadora mágica del cumpleaños para adivinar el mes y el día de nacimiento con un truco matemático divertido."
+    />
+    <link
+      rel="canonical"
+      href="https://adivinadorcumple.cl/calculadora-magica-del-cumpleanos.html"
+    />
+
+    <meta
+      property="og:title"
+      content="Calculadora mágica del cumpleaños | Adivina mes y día"
+    />
+    <meta
+      property="og:description"
+      content="Juego matemático para descubrir el mes y el día de cumpleaños con una calculadora mágica."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://adivinadorcumple.cl/calculadora-magica-del-cumpleanos.html"
+    />
+    <meta property="og:site_name" content="Adivinador Cumple" />
+    <meta property="og:image" content="https://adivinadorcumple.cl/og-cover.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Calculadora mágica del cumpleaños | Adivina mes y día"
+    />
+    <meta
+      name="twitter:description"
+      content="Truco matemático para adivinar el mes y el día de cumpleaños."
+    />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0a0a0a;
+        color: #f5f5f5;
+        line-height: 1.6;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+      }
+
+      a {
+        color: #ffd31a;
+      }
+
+      h1,
+      h2 {
+        line-height: 1.2;
+      }
+
+      .box {
+        background: #141414;
+        border: 1px solid #2a2a2a;
+        border-radius: 16px;
+        padding: 22px;
+        margin: 20px 0;
+      }
+
+      .highlight {
+        background: linear-gradient(135deg, rgba(255, 211, 26, 0.12), rgba(29, 78, 216, 0.08));
+        border: 1px solid rgba(255, 211, 26, 0.25);
+      }
+
+      .btn,
+      button {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 12px 18px;
+        background: #ffd31a;
+        color: #111;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        background: #2563eb;
+        color: #fff;
+      }
+
+      .controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .input {
+        width: 100%;
+        max-width: 360px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        background: #0f0f0f;
+        color: #fff;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+
+      .result {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 14px;
+        background: #101010;
+        border: 1px solid #2e2e2e;
+      }
+
+      .result strong {
+        color: #ffd31a;
+      }
+
+      ol,
+      ul {
+        padding-left: 22px;
+      }
+
+      .months {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .month {
+        background: #101010;
+        border: 1px solid #2c2c2c;
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+
+      @media (max-width: 640px) {
+        .input {
+          max-width: 100%;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .controls button,
+        .controls a {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <p><a href="/">← Volver al adivinador principal</a></p>
+
+      <h1>Calculadora mágica del cumpleaños</h1>
+
+      <div class="box">
+        <p>
+          Esta calculadora mágica permite adivinar el <strong>mes</strong> y el
+          <strong>día</strong> de cumpleaños usando un truco matemático muy simple.
+          Es ideal para fiestas, cumpleaños, juntas con amigos y momentos donde
+          quieras sorprender a alguien con un juego rápido.
+        </p>
+      </div>
+
+      <h2>Cómo usar la calculadora mágica</h2>
+      <div class="box highlight">
+        <p>Pídele a la persona que piense:</p>
+        <ul>
+          <li>su <strong>mes</strong> de cumpleaños como número del 1 al 12</li>
+          <li>y su <strong>día</strong> de cumpleaños del 1 al 31</li>
+        </ul>
+
+        <p>Luego debe seguir estos pasos con una calculadora:</p>
+
+        <ol>
+          <li>Tomar el número del mes</li>
+          <li>Multiplicarlo por 5</li>
+          <li>Sumarle 6</li>
+          <li>Multiplicarlo por 4</li>
+          <li>Sumarle 9</li>
+          <li>Multiplicarlo por 5</li>
+          <li>Sumarle el día del cumpleaños</li>
+        </ol>
+
+        <p>
+          Después, escribe aquí el <strong>resultado final</strong> que obtuvo la persona.
+        </p>
+
+        <label for="finalNumber"><strong>Resultado final:</strong></label><br />
+        <input
+          id="finalNumber"
+          class="input"
+          type="number"
+          placeholder="Escribe aquí el número final"
+        />
+
+        <div class="controls">
+          <button onclick="adivinarCumple()">Adivinar cumpleaños</button>
+          <button class="btn-secondary" onclick="limpiarResultado()">Limpiar</button>
+        </div>
+
+        <div id="resultado" class="result" style="display: none;"></div>
+      </div>
+
+      <h2>Referencia rápida de meses</h2>
+      <div class="box">
+        <div class="months">
+          <div class="month">1 = enero</div>
+          <div class="month">2 = febrero</div>
+          <div class="month">3 = marzo</div>
+          <div class="month">4 = abril</div>
+          <div class="month">5 = mayo</div>
+          <div class="month">6 = junio</div>
+          <div class="month">7 = julio</div>
+          <div class="month">8 = agosto</div>
+          <div class="month">9 = septiembre</div>
+          <div class="month">10 = octubre</div>
+          <div class="month">11 = noviembre</div>
+          <div class="month">12 = diciembre</div>
+        </div>
+      </div>
+
+      <h2>Por qué funciona este truco</h2>
+      <div class="box">
+        <p>
+          Aunque parece magia, el truco funciona porque la secuencia matemática
+          deja el mes y el día codificados dentro del número final. Luego, el
+          sistema revierte esa operación y reconstruye la fecha.
+        </p>
+      </div>
+
+      <h2>Cuándo usar este juego</h2>
+      <div class="box">
+        <ul>
+          <li>cumpleaños</li>
+          <li>juntas con amigos</li>
+          <li>reuniones familiares</li>
+          <li>dinámicas escolares</li>
+          <li>momentos para romper el hielo</li>
+        </ul>
+      </div>
+
+      <a class="btn" href="/">Volver a Adivinador Cumple</a>
+    </main>
+
+    <script>
+      const MONTHS = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre"
+      ];
+
+      function adivinarCumple() {
+        const input = document.getElementById("finalNumber");
+        const resultado = document.getElementById("resultado");
+        const valor = parseInt(input.value, 10);
+
+        if (Number.isNaN(valor)) {
+          resultado.style.display = "block";
+          resultado.innerHTML = "Escribe un número final válido.";
+          return;
+        }
+
+        const oculto = valor - 165;
+        const mes = Math.floor(oculto / 100);
+        const dia = oculto % 100;
+
+        if (mes < 1 || mes > 12 || dia < 1 || dia > 31) {
+          resultado.style.display = "block";
+          resultado.innerHTML =
+            "El resultado no coincide con un cumpleaños válido. Revisa que los pasos se hayan hecho correctamente.";
+          return;
+        }
+
+        resultado.style.display = "block";
+        resultado.innerHTML =
+          "<strong>Resultado:</strong> el cumpleaños pensado es el <strong>" +
+          dia +
+          " de " +
+          MONTHS[mes - 1] +
+          "</strong>.";
+      }
+
+      function limpiarResultado() {
+        document.getElementById("finalNumber").value = "";
+        document.getElementById("resultado").style.display = "none";
+        document.getElementById("resultado").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
