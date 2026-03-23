@@ -1010,10 +1010,6 @@
     padding: 13px 18px;
   }
 }
-.adiv-secondary-links-bottom {
-  margin-top: 20px;
-  justify-content: center;
-}
 .adiv-result-stack {
   display: flex;
   flex-direction: column;
@@ -1026,6 +1022,19 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 26px;
+}
+
+.adiv-link-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px 28px;
+  width: 100%;
+}
+
+.adiv-link-btn {
+  min-width: 320px;
 }
 
 .adiv-result-text,
