@@ -479,6 +479,7 @@ export default function AdivinadorCumple() {
             <a href="/adivinador-de-numero.html">Adivinador de número</a>
             <a href="/adivinador-del-mes.html">Adivinador del mes</a>
 	    <a href="/calculadora-magica-del-cumpleanos.html">Calculadora mágica</a>
+	    <a href="/juegos-matematicos-para-cumpleanos.html">Juegos matemáticos</a>
           </span>
         </footer>
       </div>
