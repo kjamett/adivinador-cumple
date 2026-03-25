@@ -169,6 +169,116 @@
           text-align: center;
         }
       }
+.mini-calculator {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid rgba(255, 215, 0, 0.22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mini-calculator__title {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.mini-calculator__help {
+  margin: 0 0 14px;
+  color: #d7d7d7;
+  font-size: 14px;
+}
+
+.mini-calculator__screen {
+  margin-bottom: 14px;
+}
+
+.mini-calculator__label {
+  font-size: 0.9rem;
+  color: #d7d7d7;
+  margin-bottom: 6px;
+}
+
+.mini-calculator__label--result {
+  margin-top: 12px;
+}
+
+.mini-calculator__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #0d0d0d;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.mini-calculator__result {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #ffd54a;
+  font-weight: 700;
+}
+
+.mini-calculator__actions-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mini-calculator__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.mini-calculator__footer {
+  margin-top: 12px;
+}
+
+.mini-btn {
+  min-height: 46px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #1c1c1c;
+  color: #fff;
+  margin-top: 0;
+}
+
+.mini-btn--primary {
+  background: #2d6cff;
+}
+
+.mini-btn--secondary {
+  background: #262626;
+}
+
+.mini-btn--use {
+  width: 100%;
+  background: #f2c318;
+  color: #111;
+}
+
+@media (max-width: 640px) {
+  .mini-calculator__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .mini-btn {
+    min-height: 42px;
+    font-size: 14px;
+    padding: 10px;
+  }
+}
     </style>
   </head>
   <body>
@@ -224,6 +334,61 @@
         </div>
 
         <div id="resultado" class="result" style="display: none;"></div>
+<div class="mini-calculator">
+  <h3 class="mini-calculator__title">Calculadora auxiliar</h3>
+  <p class="mini-calculator__help">
+    Haz aquí las operaciones paso a paso y luego usa el resultado en el campo final.
+  </p>
+
+  <div class="mini-calculator__screen">
+    <div class="mini-calculator__label">Operación</div>
+    <input
+      id="calcExpression"
+      class="mini-calculator__input"
+      type="text"
+      placeholder="Ej: ((3×5)+6)"
+      onkeydown="if(event.key === 'Enter'){ calculateCalc(); }"
+    />
+
+    <div class="mini-calculator__label mini-calculator__label--result">
+      Resultado
+    </div>
+    <div id="calcResult" class="mini-calculator__result">—</div>
+  </div>
+
+  <div class="mini-calculator__actions-top">
+    <button type="button" class="mini-btn mini-btn--secondary" onclick="clearCalc()">C</button>
+    <button type="button" class="mini-btn mini-btn--secondary" onclick="backspaceCalc()">←</button>
+  </div>
+
+  <div class="mini-calculator__grid">
+    <button type="button" class="mini-btn" onclick="appendCalc('7')">7</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('8')">8</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('9')">9</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('×')">×</button>
+
+    <button type="button" class="mini-btn" onclick="appendCalc('4')">4</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('5')">5</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('6')">6</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('+')">+</button>
+
+    <button type="button" class="mini-btn" onclick="appendCalc('1')">1</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('2')">2</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('3')">3</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('-')">-</button>
+
+    <button type="button" class="mini-btn" onclick="appendCalc('0')">0</button>
+    <button type="button" class="mini-btn" onclick="appendCalc('(')">(</button>
+    <button type="button" class="mini-btn" onclick="appendCalc(')')">)</button>
+    <button type="button" class="mini-btn mini-btn--primary" onclick="calculateCalc()">=</button>
+  </div>
+
+  <div class="mini-calculator__footer">
+    <button type="button" class="mini-btn mini-btn--use" onclick="useCalcResult()">
+      Usar resultado
+    </button>
+  </div>
+</div>
       </div>
 
       <h2>Referencia rápida de meses</h2>
@@ -314,11 +479,66 @@
           "</strong>.";
       }
 
-      function limpiarResultado() {
-        document.getElementById("finalNumber").value = "";
-        document.getElementById("resultado").style.display = "none";
-        document.getElementById("resultado").innerHTML = "";
-      }
+     function limpiarResultado() {
+  document.getElementById("finalNumber").value = "";
+  document.getElementById("resultado").style.display = "none";
+  document.getElementById("resultado").innerHTML = "";
+  clearCalc();
+}
+function appendCalc(value) {
+  const input = document.getElementById("calcExpression");
+  input.value += value;
+}
+
+function clearCalc() {
+  document.getElementById("calcExpression").value = "";
+  document.getElementById("calcResult").textContent = "—";
+}
+
+function backspaceCalc() {
+  const input = document.getElementById("calcExpression");
+  input.value = input.value.slice(0, -1);
+}
+
+function calculateCalc() {
+  const input = document.getElementById("calcExpression");
+  const resultBox = document.getElementById("calcResult");
+
+  const rawExpression = input.value.trim();
+  if (!rawExpression) {
+    resultBox.textContent = "—";
+    return;
+  }
+
+  const safeExpression = rawExpression
+    .replace(/×/g, "*")
+    .replace(/÷/g, "/");
+
+  if (!/^[0-9+\-*/().\s]+$/.test(safeExpression)) {
+    resultBox.textContent = "Error";
+    return;
+  }
+
+  try {
+    const value = Function('"use strict"; return (' + safeExpression + ')')();
+
+    if (typeof value !== "number" || !Number.isFinite(value)) {
+      resultBox.textContent = "Error";
+      return;
+    }
+
+    resultBox.textContent = String(Math.round(value * 1000000) / 1000000);
+  } catch {
+    resultBox.textContent = "Error";
+  }
+}
+
+function useCalcResult() {
+  const calcResult = document.getElementById("calcResult").textContent;
+  if (!calcResult || calcResult === "—" || calcResult === "Error") return;
+
+  document.getElementById("finalNumber").value = calcResult;
+}
     </script>
   </body>
 </html>
