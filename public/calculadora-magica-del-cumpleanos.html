@@ -667,35 +667,7 @@ function calculateCalc() {
 function useCalcResult() {
   document.getElementById("finalNumber").value = calcDisplayValue;
 }
-  const safeExpression = rawExpression
-    .replace(/×/g, "*")
-    .replace(/÷/g, "/");
-
-  if (!/^[0-9+\-*/().\s]+$/.test(safeExpression)) {
-    resultBox.textContent = "Error";
-    return;
-  }
-
-  try {
-    const value = Function('"use strict"; return (' + safeExpression + ')')();
-
-    if (typeof value !== "number" || !Number.isFinite(value)) {
-      resultBox.textContent = "Error";
-      return;
-    }
-
-    resultBox.textContent = String(Math.round(value * 1000000) / 1000000);
-  } catch {
-    resultBox.textContent = "Error";
-  }
-}
-
-function useCalcResult() {
-  const calcResult = document.getElementById("calcResult").textContent;
-  if (!calcResult || calcResult === "—" || calcResult === "Error") return;
-
-  document.getElementById("finalNumber").value = calcResult;
-}
+  clearCalc();
     </script>
   </body>
 </html>
