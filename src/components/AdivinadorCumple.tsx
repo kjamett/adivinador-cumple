@@ -442,26 +442,39 @@ export default function AdivinadorCumple() {
               )}
 
               {modo === "cumple" && (
-  		<div className="adiv-secondary-links-bottom">
+  	        <div className="adiv-secondary-links-bottom">
     		  <div className="adiv-link-group">
-      	  	    <a className="adiv-link-btn" href="/?juego=edad">
+      		    <a className="adiv-link-btn" href="/?juego=edad">
         	      Abrir juego interactivo de edad
       		    </a>
-      	 	    <a className="adiv-link-btn" href="/?juego=numero">
+      	            <a className="adiv-link-btn" href="/?juego=numero">
         	      Abrir juego interactivo de número
       		    </a>
-     		    <a className="adiv-link-btn" href="/?juego=mes">
+      	            <a className="adiv-link-btn" href="/?juego=mes">
         	      Abrir juego interactivo del mes
-      		    </a>
-      	            <a
+      	            </a>
+      	     	    <a
         	      className="adiv-link-btn"
         	      href="/calculadora-magica-del-cumpleanos.html"
       		    >
-        	      Abrir calculadora mágica del cumpleaños
+       	 	      Abrir calculadora mágica del cumpleaños
       		    </a>
     		  </div>
+
+    		  <div className="adiv-hub-cta-wrap">
+      		    <div className="adiv-hub-kicker">Explora más juegos</div>
+      	            <a
+        	      className="adiv-hub-cta"
+       		      href="/juegos-matematicos-para-cumpleanos.html"
+      		    >
+        	      Ver todos los juegos matemáticos
+      		    </a>
+      	            <div className="adiv-hub-subtext">
+        	      Descubre juegos, trucos y dinámicas para cumpleaños, fiestas y juntas.
+      	            </div>
+    		  </div>
   		</div>
-	      )}
+              )}
   	    </div>
 	  </div>
         </section>
