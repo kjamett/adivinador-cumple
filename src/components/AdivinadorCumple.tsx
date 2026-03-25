@@ -478,7 +478,37 @@ export default function AdivinadorCumple() {
   	    </div>
 	  </div>
         </section>
+<section className="adiv-seo-home">
+  <h2>Juegos matemáticos para cumpleaños y fiestas</h2>
 
+  <p>
+    <strong>Adivinador Cumple</strong> es una colección de juegos matemáticos
+    interactivos pensados para sorprender en cumpleaños, fiestas, reuniones
+    familiares y juntas con amigos. El juego principal permite adivinar el día
+    de cumpleaños usando tablas numéricas, pero también puedes explorar otras
+    variantes basadas en lógica y patrones.
+  </p>
+
+  <p>
+    Dentro del sitio encontrarás el{" "}
+    <a href="/?juego=edad">adivinador de edad</a>, el{" "}
+    <a href="/?juego=numero">adivinador de número pensado</a>, el{" "}
+    <a href="/?juego=mes">adivinador del mes de cumpleaños</a> y una{" "}
+    <a href="/calculadora-magica-del-cumpleanos.html">
+      calculadora mágica del cumpleaños
+    </a>{" "}
+    para descubrir mes y día con un truco matemático muy simple.
+  </p>
+
+  <p>
+    También puedes entrar a la página central de{" "}
+    <a href="/juegos-matematicos-para-cumpleanos.html">
+      juegos matemáticos para cumpleaños
+    </a>{" "}
+    para ver todos los juegos disponibles, leer explicaciones y descubrir nuevas
+    ideas para entretener a tus invitados con dinámicas rápidas y fáciles de usar.
+  </p>
+</section>
         <footer className="adiv-footer">
           <strong>Adivinador Cumple</strong> · interfaz interactiva lista para
           web ·{" "}
